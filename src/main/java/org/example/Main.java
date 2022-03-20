@@ -1,11 +1,16 @@
 package org.example;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.example.domain.Department;
+import org.example.domain.DepartmentType;
 import org.example.domain.Employee;
+import org.example.domain.OccupationType;
 import org.example.domain.Project;
 import org.example.repository.DepartmentRepository;
 import org.example.repository.EmployeeRepository;
@@ -33,6 +38,8 @@ public class Main {
 
     printEmployeesForProject();
     printAllDepartments();
+    addNewEmplyee();
+
   }
 
   private static void printEmployeeFullNames() {
@@ -71,5 +78,43 @@ public class Main {
         i++;
       }
     }
+  }
+
+  private static void addNewEmplyee() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Įveskite darbuotojo asmens kodą: ");
+    String employeePC = scanner.next();
+    System.out.println("Įveskite darbuotojo vardą: ");
+    String employeeName = scanner.next();
+    System.out.println("Įveskite darbuotojo pavardę: ");
+    String employeeSurname = scanner.next();
+    System.out.println("Dirba nuo (yyyy-MM-dd): ");
+    String employeeIsWorkingFrom = scanner.next();
+    System.out.println("Gimimo data (yyyy-MM-dd): ");
+    String employeeBirthday = scanner.next();
+    System.out.println("Pareigos: ");
+    String employeeOccupation = scanner.next();
+    System.out.println("Skyriaus pavadinimas: ");
+    String employeeDepartment = scanner.next();
+    System.out.println("Projekto pavadinimas: ");
+    String projectName = scanner.next();
+
+    Integer projectId;
+
+    if (projectName.equals("Izola")) {
+      projectId = 1;
+    } else if (projectName.equals("Registrų centras")) {
+      projectId = 2;
+    } else if (projectName.equals("Kaunas")) {
+      projectId = 3;
+    } else {
+      projectId = null;
+    }
+
+    Employee employee = new Employee(employeePC, employeeName, employeeSurname,
+        LocalDate.parse(employeeIsWorkingFrom), LocalDate.parse(employeeBirthday),
+        OccupationType.valueOf(employeeOccupation), DepartmentType.valueOf(employeeDepartment), projectId);
+
+    System.out.println(employee);
   }
 }
